@@ -1,0 +1,67 @@
+$transition: 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+
+.animate-layout {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+
+	.content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: fit-content;
+		// width: auto;
+		transform: translateY(30px);
+		max-height: 80vh;
+		// height: 100%;
+		// width: 100vw;
+		// transform: translateY(30%);
+
+		&_top {
+			height: 100%;
+			align-items: flex-start;
+		}
+		> div {
+			position: relative;
+		}
+	}
+
+	&.active {
+		&-enter-active,
+		&-enter-done {
+			.content {
+				transform: translateY(0);
+				transition: $transition;
+				opacity: 1;
+			}
+
+			.overlay {
+				opacity: 1;
+				transition: $transition;
+			}
+		}
+
+		&-exit,
+		&-exit-active {
+			.content {
+				transform: translateY(30px);
+
+				transition: $transition;
+				opacity: 0;
+			}
+
+			.overlay {
+				opacity: 0;
+				pointer-events: none;
+				transition: $transition;
+			}
+		}
+	}
+}
+
+.overlayOff {
+	opacity: 0 !important;
+}

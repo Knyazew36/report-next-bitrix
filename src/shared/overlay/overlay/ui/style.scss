@@ -1,0 +1,26 @@
+$transition: 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+
+.overlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: $transition;
+	opacity: 0;
+	z-index: -22;
+	pointer-events: none;
+
+	&_background-dark {
+		background-color: #000000e2;
+	}
+	&_background-light {
+		background-color: var(--overlayLight);
+	}
+
+	&_active {
+		opacity: 1;
+		z-index: 100;
+		pointer-events: inherit;
+	}
+}
