@@ -89,9 +89,6 @@ const ReportModalFilter: FC<IProps> = ({ data }) => {
 						<line x1={16} x2={16} y1={18} y2={22} />
 					</svg>
 					Фильтр
-					<span className="font-medium text-[10px] py-0.5 px-[5px] bg-gray-800 text-white leading-3 rounded-full dark:bg-neutral-500">
-						5
-					</span>
 				</button>
 
 				<AnimateLayout state={isOpen} onClose={onClose} closeOnOverlayClick>
@@ -141,57 +138,6 @@ const ReportModalFilter: FC<IProps> = ({ data }) => {
 										type="date"
 										className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
 										placeholder="This is placeholder"
-									/>
-								</div>
-
-								<div className="flex gap-2">
-									<Controller
-										name="period"
-										control={control}
-										render={({ field }) => (
-											<CheckboxWithIcons
-												label="За текущий месяц"
-												id="month"
-												checked={field.value === 'month'} // ✅ Проверяем активное значение
-												onChange={() => field.onChange('month')} // ✅ Устанавливаем значение
-											/>
-										)}
-									/>
-									<Controller
-										name="period" // ✅ То же имя, чтобы кнопки были в одной группе
-										control={control}
-										render={({ field }) => (
-											<CheckboxWithIcons
-												label="За текущую неделю"
-												id="week" // ✅ Исправляем id, чтобы он был уникальным
-												checked={field.value === 'week'} // ✅ Проверяем активное значение
-												onChange={() => field.onChange('week')} // ✅ Устанавливаем значение
-											/>
-										)}
-									/>
-									<Controller
-										name="period"
-										control={control}
-										render={({ field }) => (
-											<CheckboxWithIcons
-												label="За предыдущий месяц"
-												id="last-month"
-												checked={field.value === 'last-month'} // ✅ Проверяем активное значение
-												onChange={() => field.onChange('last-month')} // ✅ Устанавливаем значение
-											/>
-										)}
-									/>
-									<Controller
-										name="period" // ✅ То же имя, чтобы кнопки были в одной группе
-										control={control}
-										render={({ field }) => (
-											<CheckboxWithIcons
-												label="За предыдущую неделю"
-												id="last-week" // ✅ Исправляем id, чтобы он был уникальным
-												checked={field.value === 'last-week'} // ✅ Проверяем активное значение
-												onChange={() => field.onChange('last-week')} // ✅ Устанавливаем значение
-											/>
-										)}
 									/>
 								</div>
 							</div>

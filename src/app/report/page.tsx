@@ -8,7 +8,7 @@ export default function Home() {
 			{/* Breadcrumb */}
 			<ol className="lg:hidden pt-3 md:pt-5 sm:pb-2 md:pb-0 px-2 sm:px-5 flex items-center whitespace-nowrap">
 				<li className="flex items-center text-sm text-gray-600 dark:text-neutral-500">
-					Сотрудники
+					Домашняя
 					<svg
 						className="shrink-0 overflow-visible size-4 ms-1.5 text-gray-400 dark:text-neutral-600"
 						width={16}
@@ -22,7 +22,7 @@ export default function Home() {
 					</svg>
 				</li>
 				<li className="ps-1.5 flex items-center font-semibold text-gray-800 dark:text-neutral-200 text-sm">
-					Overview
+					Отчет
 				</li>
 			</ol>
 			{/* End Breadcrumb */}
@@ -30,7 +30,7 @@ export default function Home() {
 				{/* Page Header */}
 				<div className="flex justify-between items-center gap-x-5">
 					<h2 className="inline-block text-lg font-semibold text-gray-800 dark:text-neutral-200">
-						Сотрудники
+						Отчет
 					</h2>
 				</div>
 				{/* End Page Header */}

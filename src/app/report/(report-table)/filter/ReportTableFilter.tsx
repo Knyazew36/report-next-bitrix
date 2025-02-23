@@ -1,74 +1,51 @@
+'use client'
+
 import React, { FC } from 'react'
 import ReportModalFilter from '../../(report-modal-filter)/ReportModalFilter'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { format } from 'date-fns'
+import { ReportGet } from '@/entites/report'
 
 interface IProps {
-	data: any
+	data: ReportGet
 }
 const ReportTableFilter: FC<IProps> = ({ data }) => {
+	const searchParams = useSearchParams()
+	const router = useRouter()
+
+	const handleClick = (data: string) => {
+		const params = new URLSearchParams(searchParams.toString())
+
+		data.split('&').forEach(param => {
+			const [key, value] = param.split('=')
+			if (key && value) {
+				params.set(key, value)
+			}
+		})
+
+		router.push(`?${params.toString()}`)
+	}
+
 	return (
-		<div className="grid md:grid-cols-2 gap-y-2 md:gap-y-0 md:gap-x-5">
-			<div>
-				{/* Search Input */}
-				<div className="relative">
-					<div className="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-						<svg
-							className="shrink-0 size-4 text-gray-500 dark:text-neutral-400"
-							xmlns="http://www.w3.org/2000/svg"
-							width={24}
-							height={24}
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={2}
-							strokeLinecap="round"
-							strokeLinejoin="round"
-						>
-							<circle cx={11} cy={11} r={8} />
-							<path d="m21 21-4.3-4.3" />
-						</svg>
-					</div>
-					<input
-						type="text"
-						className="py-[7px] ps-10 pe-8 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:bg-white focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder:text-neutral-400 dark:focus:bg-neutral-800 dark:focus:ring-neutral-600"
-						placeholder="Search projects"
-					/>
-					<div className="hidden absolute inset-y-0 end-0 flex items-center z-20 pe-1">
+		<div className="flex  lg:items-center justify-between">
+			{data?.dateFilters && (
+				<div className="grid sm:inline-flex rounded-lg shadow-sm">
+					{data.dateFilters.map(item => (
 						<button
+							key={item.label}
+							onClick={() => handleClick(item.value)}
 							type="button"
-							className="inline-flex shrink-0 justify-center items-center size-6 rounded-full text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:text-neutral-500 dark:hover:text-blue-500 dark:focus:text-blue-500"
-							aria-label="Close"
+							className="py-2 px-3 inline-flex justify-center items-center gap-x-2 -mt-px sm:mt-0 sm:-ms-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-s-lg sm:first:ms-0 sm:first:rounded-se-none sm:last:rounded-es-none sm:last:rounded-e-lg text-start text-sm font-medium border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-gray-800 focus:text-white dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-200 dark:focus:text-neutral-800"
 						>
-							<span className="sr-only">Close</span>
-							<svg
-								className="shrink-0 size-4"
-								xmlns="http://www.w3.org/2000/svg"
-								width={24}
-								height={24}
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth={2}
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							>
-								<circle cx={12} cy={12} r={10} />
-								<path d="m15 9-6 6" />
-								<path d="m9 9 6 6" />
-							</svg>
+							{item.label}
 						</button>
-					</div>
+					))}
 				</div>
-				{/* End Search Input */}
+			)}
+
+			<div className="hs-dropdown [--auto-close:true] relative inline-flex">
+				<ReportModalFilter data={data} />
 			</div>
-			{/* End Col */}
-			<div className="flex justify-end items-center gap-x-2">
-				{/* Filter Dropdown */}
-				<div className="hs-dropdown [--auto-close:true] relative inline-flex">
-					<ReportModalFilter data={data} />
-				</div>
-				{/* End Filter Dropdown */}
-			</div>
-			{/* End Col */}
 		</div>
 	)
 }

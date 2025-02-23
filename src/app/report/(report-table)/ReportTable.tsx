@@ -40,20 +40,12 @@ const ReportTable = () => {
 		const paramsObject = Object.fromEntries(searchParams.entries())
 		getData(paramsObject)
 	}, [searchParams])
-	const [value, onChange] = useState<Value>(new Date())
 
 	return (
 		<div className="p-5 space-y-4 flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
-			{/* Nav Tab */}
-			{/* <Calendar onChange={onChange} value={value} /> */}
-
 			<ReportTabs />
-			{/* End Nav Tab */}
-			{/* Filter Group */}
-			<ReportTableFilter data={data} />
-			{/* End Filter Group */}
+			{data && <ReportTableFilter data={data} />}
 			<div>
-				{/* Tab Content */}
 				<div id="hs-pro-tabs-dut-all" role="tabpanel" aria-labelledby="hs-pro-tabs-dut-item-all">
 					{/* Table Section */}
 					<div className="overflow-x-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
@@ -64,7 +56,7 @@ const ReportTable = () => {
 									<thead>
 										<tr className="border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
 											<th scope="col" className="px-3 py-2.5 text-start"></th>
-											<th scope="col" className="min-w-72 ">
+											<th scope="col" className="min-w-72 lg:sticky -left-1 bg-neutral-800">
 												<span className="text-sm text-gray-600 dark:text-neutral-400">Имя</span>
 											</th>
 											<th scope="col" className="px-4">
@@ -100,7 +92,7 @@ const ReportTable = () => {
 									<tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
 										{data.data.map((item, index) => (
 											<tr
-												className="divide-x divide-gray-200 dark:divide-neutral-700"
+												className="divide-x divide-gray-200 dark:divide-neutral-700 odd:bg-neutral-900"
 												key={nanoid()}
 											>
 												<td className="size-px whitespace-nowrap px-3 py-4">
@@ -108,13 +100,48 @@ const ReportTable = () => {
 														{index + 1}
 													</span>
 												</td>
-												<td className="size-px px-4 py-1 relative group cursor-pointer pe-20 lg:pe-24">
+												<td
+													className={clsx(
+														'size-px px-4 py-1  group cursor-pointer pe-10  lg:sticky -left-1 ',
+														index % 2 === 0 ? 'bg-neutral-900' : 'bg-neutral-800'
+													)}
+												>
 													<div className="w-full flex items-center gap-x-3">
-														<img
-															className="shrink-0 size-[38px] rounded-full"
-															src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=3&w=320&h=320&q=80"
-															alt="Avatar"
-														/>
+														{item.avatar ? (
+															<img
+																className="shrink-0 size-[38px] rounded-full"
+																src={item?.avatar}
+																alt="Avatar"
+															/>
+														) : (
+															<span className="inline-block size-[38px] bg-gray-100 rounded-full overflow-hidden">
+																<svg
+																	className="size-full text-gray-300"
+																	width={16}
+																	height={16}
+																	viewBox="0 0 16 16"
+																	fill="none"
+																	xmlns="http://www.w3.org/2000/svg"
+																>
+																	<rect
+																		x="0.62854"
+																		y="0.359985"
+																		width={15}
+																		height={15}
+																		rx="7.5"
+																		fill="white"
+																	/>
+																	<path
+																		d="M8.12421 7.20374C9.21151 7.20374 10.093 6.32229 10.093 5.23499C10.093 4.14767 9.21151 3.26624 8.12421 3.26624C7.0369 3.26624 6.15546 4.14767 6.15546 5.23499C6.15546 6.32229 7.0369 7.20374 8.12421 7.20374Z"
+																		fill="currentColor"
+																	/>
+																	<path
+																		d="M11.818 10.5975C10.2992 12.6412 7.42106 13.0631 5.37731 11.5537C5.01171 11.2818 4.69296 10.9631 4.42107 10.5975C4.28982 10.4006 4.27107 10.1475 4.37419 9.94123L4.51482 9.65059C4.84296 8.95684 5.53671 8.51624 6.30546 8.51624H9.95231C10.7023 8.51624 11.3867 8.94749 11.7242 9.62249L11.8742 9.93184C11.968 10.1475 11.9586 10.4006 11.818 10.5975Z"
+																		fill="currentColor"
+																	/>
+																</svg>
+															</span>
+														)}
 														<div className="grow">
 															<span className="text-sm font-medium text-gray-800 dark:text-neutral-200">
 																{item.fullName}
@@ -149,16 +176,7 @@ const ReportTable = () => {
 																		)}
 																		key={key}
 																	>
-																		{/* <span
-																			className={clsx(
-																				'text-sm text-gray-600 dark:text-neutral-400 font-bold',
-																				range.isWeekend && 'text-neutral-800 dark:text-neutral-800'
-																			)}
-																		>
-																			{value.time}
-																		</span> */}
-
-																		<ReportModalDetail time={value.time} data={item} />
+																		<ReportModalDetail time={value.time} data={value.groups} />
 																	</td>
 																)
 															}
@@ -259,8 +277,7 @@ const ReportTable = () => {
 					)}
 					{/* End Footer */}
 				</div>
-				{/* End Tab Content */}
-				{/* Tab Content */}
+
 				<div
 					id="hs-pro-tabs-dut-validaccounts"
 					className="hidden"
@@ -488,8 +505,7 @@ const ReportTable = () => {
 					</div>
 					{/* End Empty State */}
 				</div>
-				{/* End Tab Content */}
-				{/* Tab Content */}
+
 				<div
 					id="hs-pro-tabs-dut-fakeaccounts"
 					className="hidden"
@@ -717,7 +733,6 @@ const ReportTable = () => {
 					</div>
 					{/* End Empty State */}
 				</div>
-				{/* End Tab Content */}
 			</div>
 		</div>
 	)

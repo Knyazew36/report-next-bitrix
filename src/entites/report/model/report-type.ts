@@ -14,23 +14,26 @@ export interface ReportGet {
 		isWeekend: boolean
 		month: number
 	}[]
+	dateFilters: SelectOption[]
 }
 
 export interface Report {
 	fullName: string
 	totalTime: string
+	avatar?: string
 	department?: Department[]
 	workLog: Record<
 		string,
 		{
 			time: string
-			groups: [
-				{
-					groupId: string
-					groupName: string
-					tasks: { taskId: string; taskLink: string; time: string; title: string }[]
-				}
-			]
+			groups: ReportGroup[]
 		}
 	>
+}
+
+export interface ReportGroup {
+	groupId: string
+	groupName: string
+	totalTime?: string
+	tasks: { taskId: string; taskLink: string; time: string; title: string }[]
 }

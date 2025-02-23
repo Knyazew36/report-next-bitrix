@@ -15,7 +15,9 @@ const Divider: FC<IProps> = ({ direction = 'vertical', className }) => {
 			)}
 		></div>
 	) : (
-		<div className={clsx('bgr-gray-200 h-[1px] w-full grow dark:bg-neutral-700', className && className)}></div>
+		<div
+			className={clsx('bg-gray-200 h-[30px] w-full grow dark:bg-red-200', className && className)}
+		></div>
 	)
 }
 export default Divider

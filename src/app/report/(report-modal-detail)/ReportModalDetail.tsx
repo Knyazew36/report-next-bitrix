@@ -1,11 +1,14 @@
 'use client'
 
+import { Report, ReportGroup } from '@/entites/report'
 import { AnimateLayout } from '@/shared/layouts'
+import { Divider } from '@/shared/ui'
+import { useKeyDown } from '@react-hooks-library/core'
 import React, { FC, useState } from 'react'
 
 interface IProps {
 	time?: string
-	data: any
+	data: ReportGroup[]
 }
 const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -13,7 +16,10 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 		setIsOpen(false)
 	}
 
-	console.info('data', data)
+	useKeyDown(['Escape'], e => {
+		onClose()
+		e.preventDefault()
+	})
 
 	return (
 		<>
@@ -26,10 +32,13 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 			</button>
 
 			<AnimateLayout state={isOpen} onClose={onClose} closeOnOverlayClick>
-				<div className="w-full max-h-full flex flex-col bg-white rounded-xl pointer-events-auto shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_10px_rgba(0,0,0,0.2)] dark:bg-neutral-800">
+				<div className="w-full lg:min-w-96 max-h-full flex flex-col bg-white rounded-xl pointer-events-auto shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_10px_rgba(0,0,0,0.2)] dark:bg-neutral-800">
 					{/* Header */}
 					<div className="py-2.5 px-4 flex justify-between items-center border-b dark:border-neutral-700">
-						<h3 className="font-medium text-gray-800 dark:text-neutral-200">Фильтр</h3>
+						<h3 className="font-semibold text-gray-800 dark:text-neutral-200">
+							Время по задачам{' '}
+							<span className="text-sm text-gray-600 dark:text-neutral-400">{time}</span>
+						</h3>
 						<button
 							type="button"
 							onClick={onClose}
@@ -56,7 +65,41 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 					{/* End Header */}
 					{/* Body */}
 					<div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-						<div className="p-4 space-y-5">asdfadsf</div>
+						<div className="p-4 space-y-5">
+							{data.map(group => (
+								<div key={group.groupId} className="flex flex-col gap-3">
+									<div className="flex justify-between">
+										<h2 className="text-lg font-semibold text-gray-800 dark:text-neutral-200">
+											{group?.groupName}
+										</h2>
+										<span className="text-sm text-gray-600 dark:text-neutral-400">
+											{group?.totalTime}
+										</span>
+									</div>
+
+									<ul className="flex flex-col divide-y divide-gray-200 dark:divide-neutral-700">
+										{group?.tasks?.map(task => (
+											<li
+												className="inline-flex items-center gap-x-4 py-3  text-sm font-medium text-gray-800 dark:text-white"
+												key={task.taskId}
+											>
+												<a
+													target="_blank"
+													className="text-blue-600 hover:text-blue-500 decoration-2 hover:underline focus:outline-none focus:underline opacity-90"
+													href={task.taskLink}
+												>
+													{task.title}
+												</a>
+
+												<span className="ml-auto text-sm text-gray-500 dark:text-neutral-500">
+													{task.time}
+												</span>
+											</li>
+										))}
+									</ul>
+								</div>
+							))}
+						</div>
 					</div>
 					{/* End Body */}
 					{/* Footer */}
