@@ -32,7 +32,7 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 			</button>
 
 			<AnimateLayout state={isOpen} onClose={onClose} closeOnOverlayClick>
-				<div className="w-full lg:min-w-96 max-h-full flex flex-col bg-white rounded-xl pointer-events-auto shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_10px_rgba(0,0,0,0.2)] dark:bg-neutral-800">
+				<div className="w-full lg:min-w-96  flex flex-col bg-white rounded-xl pointer-events-auto shadow-[0_10px_40px_10px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_40px_10px_rgba(0,0,0,0.2)] dark:bg-neutral-800">
 					{/* Header */}
 					<div className="py-2.5 px-4 flex justify-between items-center border-b dark:border-neutral-700">
 						<h3 className="font-semibold text-gray-800 dark:text-neutral-200">
@@ -64,10 +64,10 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 					</div>
 					{/* End Header */}
 					{/* Body */}
-					<div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+					<div className="overflow-y-auto max-h-[70vh] flex-1 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
 						<div className="p-4 space-y-5">
-							{data.map(group => (
-								<div key={group.groupId} className="flex flex-col gap-3">
+							{data.map((group, index) => (
+								<div key={index} className="flex flex-col gap-3">
 									<div className="flex justify-between">
 										<h2 className="text-lg font-semibold text-gray-800 dark:text-neutral-200">
 											{group?.groupName}
@@ -78,10 +78,10 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 									</div>
 
 									<ul className="flex flex-col divide-y divide-gray-200 dark:divide-neutral-700">
-										{group?.tasks?.map(task => (
+										{group?.tasks?.map((task, index) => (
 											<li
 												className="inline-flex items-center gap-x-4 py-3  text-sm font-medium text-gray-800 dark:text-white"
-												key={task.taskId}
+												key={index}
 											>
 												<a
 													target="_blank"
@@ -101,27 +101,6 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 							))}
 						</div>
 					</div>
-					{/* End Body */}
-					{/* Footer */}
-					{/* <div className="p-4 flex justify-end gap-x-2">
-					<div className="flex-1 flex justify-end items-center gap-2">
-						<button
-							type="button"
-							className="py-2 px-3 text-nowrap inline-flex justify-center items-center text-start bg-white border border-gray-200 text-gray-800 text-sm font-medium rounded-lg shadow-sm align-middle hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
-							data-hs-overlay="#hs-pro-deum"
-							aria-expanded="true"
-						>
-							Очистить
-						</button>
-						<button
-							type="submit"
-							className="py-2 px-3 text-nowrap inline-flex justify-center items-center gap-x-2 text-start bg-blue-600 border border-blue-600 text-white text-sm font-medium rounded-lg shadow-sm align-middle hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-blue-300 dark:focus:ring-blue-500"
-						>
-							Применить
-						</button>
-					</div>
-				</div> */}
-					{/* End Footer */}
 				</div>
 			</AnimateLayout>
 		</>

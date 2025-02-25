@@ -21,8 +21,10 @@ type Value = ValuePiece | [ValuePiece, ValuePiece]
 const ReportTable = () => {
 	const [data, setData] = useState<ReportGet>()
 	const searchParams = useSearchParams()
+	const [isLoading, setIsLoading] = useState(false)
 
 	const getData = async (data: DataReportGet) => {
+		if (isLoading) return
 		const res = await reportGet({ data })
 		if (res) {
 			setData(res)
@@ -30,15 +32,10 @@ const ReportTable = () => {
 	}
 
 	useEffect(() => {
-		;(async () => {
-			getData({})
-		})()
-	}, [])
-
-	useEffect(() => {
-		if (!searchParams) return
+		setIsLoading(true)
 		const paramsObject = Object.fromEntries(searchParams.entries())
-		getData(paramsObject)
+		getData(Object.keys(paramsObject).length ? paramsObject : {})
+		setIsLoading(false)
 	}, [searchParams])
 
 	return (

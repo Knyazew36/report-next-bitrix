@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import ReportStats from './(report-stats)/ReportStats'
 import ReportTable from './(report-table)/ReportTable'
+import ReportStats from './(report-stats)/ReportStats'
 
 export default function Home() {
 	return (
