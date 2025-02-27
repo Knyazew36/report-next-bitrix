@@ -80,20 +80,27 @@ const ReportModalDetail: FC<IProps> = ({ time, data }) => {
 									<ul className="flex flex-col divide-y divide-gray-200 dark:divide-neutral-700">
 										{group?.tasks?.map((task, index) => (
 											<li
-												className="inline-flex items-center gap-x-4 py-3  text-sm font-medium text-gray-800 dark:text-white"
+												className="gap-1 items-center gap-x-4 py-3  text-sm font-medium text-gray-800 dark:text-white flex flex-col"
 												key={index}
 											>
-												<a
-													target="_blank"
-													className="text-blue-600 hover:text-blue-500 decoration-2 hover:underline focus:outline-none focus:underline opacity-90"
-													href={task.taskLink}
-												>
-													{task.title}
-												</a>
+												<div className="flex justify-between w-full">
+													<a
+														target="_blank"
+														className="text-blue-600 hover:text-blue-500 decoration-2 hover:underline focus:outline-none focus:underline opacity-90 max-w-[80%] text-ellipsis overflow-hidden whitespace-nowrap"
+														href={task.taskLink}
+													>
+														{task.title}
+													</a>
 
-												<span className="ml-auto text-sm text-gray-500 dark:text-neutral-500">
-													{task.time}
-												</span>
+													<span className="ml-auto text-sm text-gray-500 dark:text-neutral-500">
+														{task.time}
+													</span>
+												</div>
+												{task.comment && (
+													<span className="ml-auto text-sm text-gray-500 dark:text-neutral-500">
+														{task.comment}
+													</span>
+												)}
 											</li>
 										))}
 									</ul>

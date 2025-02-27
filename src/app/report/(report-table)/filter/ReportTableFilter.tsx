@@ -56,7 +56,10 @@ const ReportTableFilter: FC<IProps> = ({ data }) => {
 				</div>
 			)}
 
-			<ReportModalFilter data={data} />
+			<div className="flex gap-2 items-end flex-col ">
+				<p className="text-sm text-gray-600 dark:text-neutral-400">{data.updateDate}</p>
+				<ReportModalFilter data={data} />
+			</div>
 		</div>
 	)
 }

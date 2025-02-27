@@ -41,7 +41,8 @@ const ReportTable = () => {
 	return (
 		<div className="p-5 space-y-4 flex flex-col bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700">
 			<ReportTabs />
-			{data && <ReportTableFilter data={data} />}
+
+			{data?.data && <ReportTableFilter data={data} />}
 			<div>
 				<div id="hs-pro-tabs-dut-all" role="tabpanel" aria-labelledby="hs-pro-tabs-dut-item-all">
 					{/* Table Section */}
@@ -64,7 +65,7 @@ const ReportTable = () => {
 												<span className="text-sm text-white">Итого</span>
 											</th>
 
-											{data.dateRange.map(range => (
+											{data?.dateRange?.map(range => (
 												<th
 													scope="col"
 													className={clsx(
@@ -79,14 +80,14 @@ const ReportTable = () => {
 															range.isWeekend && 'text-neutral-800 dark:text-neutral-800'
 														)}
 													>
-														{range.date}
+														{range.formattedDate}
 													</span>
 												</th>
 											))}
 										</tr>
 									</thead>
 									<tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-										{data.data.map((item, index) => (
+										{data?.data?.map((item, index) => (
 											<tr
 												className="divide-x divide-gray-200 dark:divide-neutral-700 odd:bg-neutral-900"
 												key={nanoid()}
@@ -201,7 +202,7 @@ const ReportTable = () => {
 					{data && (
 						<div className="grid grid-cols-2 items-center gap-y-2 sm:gap-y-0 sm:gap-x-5">
 							<p className="text-sm text-gray-800 dark:text-neutral-200">
-								<span className="font-medium">{data.data.length}</span>
+								<span className="font-medium">{data?.data?.length}</span>
 								<span className="text-gray-500 dark:text-neutral-500"> результата</span>
 							</p>
 							{/* Pagination */}
