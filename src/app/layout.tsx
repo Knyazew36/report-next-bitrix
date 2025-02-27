@@ -60,7 +60,7 @@ export default function RootLayout({
 								{/* End Sidebar Toggle */}
 							</div>
 						</div>
-						<div className="xl:col-span-2 flex justify-end items-center gap-x-2">
+						<div className="xl:col-span-2 flex justify-end items-center gap-x-2 opacity-0">
 							<div className="flex items-center"></div>
 
 							<div className="border-e border-gray-200 w-px h-6 mx-1.5 dark:border-neutral-700" />

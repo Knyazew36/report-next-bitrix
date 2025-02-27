@@ -52,8 +52,7 @@ const ReportTable = () => {
 								<table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
 									<thead>
 										<tr className="border-t border-gray-200 divide-x divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
-											<th scope="col" className="px-3 py-2.5 text-start"></th>
-											<th scope="col" className="min-w-72 lg:sticky -left-1 bg-neutral-800">
+											<th scope="col" className="min-w-72 lg:sticky left-0 bg-neutral-800">
 												<span className="text-sm text-gray-600 dark:text-neutral-400">Имя</span>
 											</th>
 											<th scope="col" className="px-4">
@@ -92,14 +91,9 @@ const ReportTable = () => {
 												className="divide-x divide-gray-200 dark:divide-neutral-700 odd:bg-neutral-900"
 												key={nanoid()}
 											>
-												<td className="size-px whitespace-nowrap px-3 py-4">
-													<span className="text-sm text-gray-600 dark:text-neutral-400">
-														{index + 1}
-													</span>
-												</td>
 												<td
 													className={clsx(
-														'size-px px-4 py-1  group cursor-pointer pe-10  lg:sticky -left-1 ',
+														'size-px px-4 py-1  group cursor-pointer pe-10  lg:sticky left-0 ',
 														index % 2 === 0 ? 'bg-neutral-900' : 'bg-neutral-800'
 													)}
 												>
